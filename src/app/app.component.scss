@@ -1,0 +1,15 @@
+.grid {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+
+    &__item {
+        min-width: 50%;
+        width: 50%;
+    }
+}
+
+.grid-item {
+    min-width: 50%;
+    width: 50%;
+}
