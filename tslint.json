@@ -16,6 +16,7 @@
     "component-class-suffix": true,
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
+    "no-trailing-whitespace": false,
     "directive-selector": [
       true,
       "attribute",
@@ -65,7 +66,7 @@
     ],
     "no-empty": false,
     "no-inferrable-types": [
-      true,
+      false,
       "ignore-params"
     ],
     "no-non-null-assertion": true,
@@ -120,7 +121,9 @@
       "options": [
         "ban-keywords",
         "check-format",
-        "allow-pascal-case"
+        "allow-pascal-case",
+          "allow-snake-case",
+          "allow-leading-underscore"
       ]
     },
     "whitespace": {

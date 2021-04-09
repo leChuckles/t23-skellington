@@ -1,15 +1,30 @@
 <div class="grid">
 
-    <app-skellington-dummy
+
+    <div class="grid__item" style="padding: 24px; box-sizing: border-box">
+        <h1 skellLine>Foobar</h1>
+        <div>
+            <p skellLine *ngFor="let line of lines">{{ text }}</p>
+            <p skellLine [count]="1">{{ text }}</p>
+        </div>
+    </div>
+
+    <!---
+    <app-skellington class="grid__item" [skelloading]="loading$ | async">
+        <app-dummy>
+            asdfasdf
+        </app-dummy>
+    </app-skellington>
+
+    <app-dummy
         skellington="app-skeletons"
         [skelloading]="loading$ | async"
         [props]="{ count: 4 }"
         class="grid__item"
-    ></app-skellington-dummy>
+    ></app-dummy>
 
-    <app-skellington-dummy skellington [skelloading]="loading$ | async" class="grid__item"></app-skellington-dummy>
-    <app-skellington-dummy skellington [skelloading]="loading$ | async" class="grid__item"></app-skellington-dummy>
-    <app-skellington-dummy skellington [skelloading]="loading$ | async" class="grid__item"></app-skellington-dummy>
+    <app-dummy skellington [skelloading]="loading$ | async" class="grid__item"></app-dummy>
+    -->
 
-    <app-skellington-dummy skellington="app-skeletons" [skelloading]="loading$ | async" class="grid__item"></app-skellington-dummy>
+
 </div>

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ComponentFactoryResolver, Directive, ElementRef, Input, ViewContainerRef, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, Directive, ElementRef, Input, ViewContainerRef, ViewRef } from '@angular/core';
 import { SkellingtonService } from './providers/skellington.service';
 
 @Directive({
@@ -24,7 +24,6 @@ export class SkellingtonDirective {
     constructor(
         protected readonly elementRef: ElementRef,
         protected readonly vcr: ViewContainerRef,
-        protected readonly resolver: ComponentFactoryResolver,
         protected readonly service: SkellingtonService,
         protected readonly cdr: ChangeDetectorRef,
     ) {}

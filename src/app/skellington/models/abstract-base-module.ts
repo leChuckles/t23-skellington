@@ -21,7 +21,7 @@ export abstract class AbstractBaseModule {
     protected populateRegistry(dynamicComponents: Array<Type<any>>): void {
         this.selectorToFactoryMap = {};
         const components = [ ...dynamicComponents, ...this.dynamicComponents ];
-        console.log('COMPONENTS: ', components);
+
         if (
             Array.isArray(components) &&
             components.length > 0
