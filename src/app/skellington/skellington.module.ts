@@ -7,6 +7,7 @@ import { AbstractBaseModule } from './models/abstract-base-module';
 import { SKELL_CONF, SkellConf } from './skellington.token';
 import { SkellLineDirective } from './skell-line.directive';
 import { SkellingtonLineComponent } from './components/skellington-line/skellington-line.component';
+import { SkellingtonImgComponent } from './components/skellington-img/skellington-img.component';
 
 @NgModule({
     declarations: [
@@ -14,6 +15,7 @@ import { SkellingtonLineComponent } from './components/skellington-line/skelling
         SkellingtonComponent,
         SkellLineDirective,
         SkellingtonLineComponent,
+        SkellingtonImgComponent,
     ],
     imports: [
         CommonModule,
@@ -29,7 +31,7 @@ import { SkellingtonLineComponent } from './components/skellington-line/skelling
 })
 export class SkellingtonModule extends AbstractBaseModule {
 
-    protected dynamicComponents = [ SkellingtonComponent, SkellingtonLineComponent ];
+    protected dynamicComponents = [ SkellingtonComponent, SkellingtonLineComponent, SkellingtonImgComponent ];
 
     constructor(componentFactoryResolver: ComponentFactoryResolver) {
         super(componentFactoryResolver);

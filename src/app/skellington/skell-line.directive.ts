@@ -16,7 +16,7 @@ import { filter, map, takeUntil, tap } from 'rxjs/operators';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-  selector: '[skellLine]'
+  selector: '[skellLine], [skell]'
 })
 export class SkellLineDirective implements OnInit, OnDestroy {
     protected readonly mutationObserver: MutationObserver | undefined;
@@ -38,6 +38,14 @@ export class SkellLineDirective implements OnInit, OnDestroy {
         this._component = component;
     }
     public get skellLine(): string {
+        return this._component;
+    }
+
+    @Input() public set skell(component: string) {
+        if (!component) { return; }
+        this._component = !!component ? component : this.elementRef.nativeElement.nodeName.toLowerCase();
+    }
+    public get skell(): string {
         return this._component;
     }
 
@@ -63,8 +71,22 @@ export class SkellLineDirective implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        console.log('COUNT: ', this.count);
-        this.createSkellingtonLine(this.skellLine);
+
+        let component;
+        switch (this.skell) {
+            case 'line':
+                component = 'app-skellington-line';
+                break;
+            case 'img':
+                component = 'app-skellington-img';
+                break;
+            default:
+                component = this.skell;
+        }
+
+        console.log('COMPONENT', component);
+
+        this.createSkellingtonLine(component);
 
         this.changes$
             .pipe(
@@ -75,12 +97,13 @@ export class SkellLineDirective implements OnInit, OnDestroy {
                     });
                 }),
                 filter(mutation => !!mutation),
-                tap(console.log),
+                // tap(console.log),
             )
             .subscribe(() => this.clearSkellingtonLine());
     }
 
     public async create(component: string): Promise<ViewRef> {
+        const element = this.elementRef.nativeElement as Node;
 
         return this.service
             .getComponentBySelector(
@@ -89,10 +112,7 @@ export class SkellLineDirective implements OnInit, OnDestroy {
             )
             .then(componentRef => {
                 this.setStyling(this.elementRef, componentRef);
-
                 this.insertComponentView(componentRef);
-
-
                 return componentRef.hostView;
             });
     }
@@ -120,7 +140,12 @@ export class SkellLineDirective implements OnInit, OnDestroy {
     }
 
     protected setStyling(element: ElementRef, componentRef: ComponentRef<unknown>): void {
-        const styles = ['margin', 'padding', ['font-size', 'height']];
+        let styles: (string | string[])[] = ['margin', 'padding', 'width'];
+        if (element.nativeElement.nodeName !== 'IMG') {
+            styles = [...styles, ['font-size', 'height']];
+        } else {
+            styles = [...styles, 'height'];
+        }
 
         styles.forEach((style: string | Array<string>) => {
             const isArray = (val: string | Array<string>): val is Array<string> => {
@@ -139,7 +164,6 @@ export class SkellLineDirective implements OnInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        console.log('DESTROY: ');
         this.mutationObserver.disconnect();
         this.destroyed$.next();
     }

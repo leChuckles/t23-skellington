@@ -1,13 +1,19 @@
 <div class="grid">
 
 
-    <div class="grid__item" style="padding: 24px; box-sizing: border-box">
-        <h1 skellLine>Foobar</h1>
-        <div>
-            <p skellLine *ngFor="let line of lines">{{ text }}</p>
-            <p skellLine [count]="1">{{ text }}</p>
+    <app-dummy class="grid__item" style="padding: 24px; box-sizing: border-box">
+        <div style="display: flex; align-items: center; width: 100%">
+            <div style="min-width: 50px; width: 50px; height: 50px;">
+                <img [src]="src" skell="line" style="width: 100%; height: 100%; object-fit: cover;" [skelloading]="loading$ | async"/>
+            </div>
+            <p skell="line" style="width: 100%; margin-left: 24px;">{{ text }}</p>
         </div>
-    </div>
+
+        <div>
+            <p skell="line" *ngFor="let line of lines">{{ text }}</p>
+            <p skell="line" [count]="5">{{ longText }}</p>
+        </div>
+    </app-dummy>
 
     <!---
     <app-skellington class="grid__item" [skelloading]="loading$ | async">

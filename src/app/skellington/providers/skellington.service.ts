@@ -24,6 +24,10 @@ export class SkellingtonService {
                     any
                     > = module.instance.getComponentFactory(componentSelector, dynamicComponents);
 
+                if (!compFactory) {
+                    throw Error('Cant find your component ' + componentSelector);
+                }
+
                 return compFactory.create(module.injector, [], null, module);
             } else {
                 throw new Error('Module should extend BaseModule to use "string" based component selector');
