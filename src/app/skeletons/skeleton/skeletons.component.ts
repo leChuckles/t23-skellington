@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'app-skeletons',
@@ -8,9 +8,20 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class SkeletonsComponent {
 
-    public lineCount: Array<number> = [0];
+    // tslint:disable-next-line:variable-name
+    protected _count = 4;
 
-    public set lines(lines: number) {
-        this.lineCount = new Array(lines).fill(0);
+    @Input() public set count(lines: number) {
+        this._count = lines;
+        this.cdr.detectChanges();
+    }
+
+    public get count(): number {
+        return this._count;
+    }
+
+    constructor(
+        protected readonly cdr: ChangeDetectorRef,
+    ) {
     }
 }

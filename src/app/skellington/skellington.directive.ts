@@ -1,4 +1,4 @@
-import { ComponentFactoryResolver, Directive, ElementRef, Input, ViewContainerRef, ViewRef } from '@angular/core';
+import { ChangeDetectorRef, ComponentFactoryResolver, Directive, ElementRef, Input, ViewContainerRef, ViewRef } from '@angular/core';
 import { SkellingtonService } from './providers/skellington.service';
 
 @Directive({
@@ -6,6 +6,10 @@ import { SkellingtonService } from './providers/skellington.service';
   selector: '[skellington]'
 })
 export class SkellingtonDirective {
+
+    @Input() public props = {
+        count: 3,
+    };
 
     @Input() public set skelloading(loading: boolean) {
         if (loading) { this.clearSkellington(); }
@@ -22,6 +26,7 @@ export class SkellingtonDirective {
         protected readonly vcr: ViewContainerRef,
         protected readonly resolver: ComponentFactoryResolver,
         protected readonly service: SkellingtonService,
+        protected readonly cdr: ChangeDetectorRef,
     ) {}
 
     public async create(component: string): Promise<ViewRef> {
@@ -32,19 +37,30 @@ export class SkellingtonDirective {
             )
             .then(componentRef => {
                 componentRef.location.nativeElement.classList = this.elementRef.nativeElement.classList;
-                return this.vcr.insert(componentRef.hostView);
+                this.vcr.insert(componentRef.hostView);
+                if (this.props && Object.keys(this.props).length > 0) {
+                    Object
+                        .entries(this.props)
+                        .forEach(([key, value]) => {
+                            componentRef.instance[key] = value;
+                        });
+                }
+                return componentRef.hostView;
             });
     }
 
     public async createSkellington(component?: string): Promise<void> {
         if (!this.ref) {
             this.ref = !!component ? await this.create(component) : await this.create('app-skellington');
+
             this.elementRef.nativeElement.hidden = true;
+            this.cdr.detectChanges();
         }
     }
 
     public clearSkellington(): void {
         this.elementRef.nativeElement.hidden = false;
+        this.cdr.detectChanges();
         this.vcr.clear();
         this.ref = undefined;
     }

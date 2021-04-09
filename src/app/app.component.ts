@@ -14,6 +14,6 @@ export class AppComponent implements OnInit {
     public loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
     public ngOnInit(): void {
-        setTimeout(() => this.loadingSubject.next(true), 1000);
+        setTimeout(() => this.loadingSubject.next(true), 1500);
     }
 }
