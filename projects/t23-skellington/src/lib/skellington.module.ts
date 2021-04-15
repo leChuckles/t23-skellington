@@ -1,9 +1,9 @@
 import { ComponentFactoryResolver, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SkellingtonDirective } from './skellington.directive';
+import { SkellingtonDirective } from './directives/skellington.directive';
 import { SkellingtonService } from './providers/skellington.service';
 import { AbstractBaseModule } from './models/abstract-base-module';
-import { SKELL_CONF } from './skellington.token';
+import { SKELL_CONF } from './models/skellington.token';
 import { SkellingtonComponent } from './components/skellington/skellington.component';
 import { SkellConf } from './models/interfaces/skellington-config';
 

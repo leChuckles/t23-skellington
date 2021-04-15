@@ -19,6 +19,14 @@
       "skell": [
         "dist/skell/skell",
         "dist/skell"
+      ],
+      "my-lib": [
+        "dist/my-lib/my-lib",
+        "dist/my-lib"
+      ],
+      "t23-skellington": [
+        "dist/t23-skellington/t23-skellington",
+        "dist/t23-skellington"
       ]
     }
   }

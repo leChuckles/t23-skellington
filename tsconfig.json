@@ -18,6 +18,18 @@
     },
     {
       "path": "./projects/skell/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/my-lib/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/my-lib/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/t23-skellington/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/t23-skellington/tsconfig.spec.json"
     }
 ]
 }

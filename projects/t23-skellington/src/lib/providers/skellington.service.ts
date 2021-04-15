@@ -1,6 +1,6 @@
 import { Compiler, ComponentFactory, ComponentRef, Inject, Injectable, Injector, NgModuleFactory, Optional } from '@angular/core';
 import { AbstractBaseModule } from '../models/abstract-base-module';
-import { SKELL_CONF } from '../skellington.token';
+import { SKELL_CONF } from '../models/skellington.token';
 import { SkellingtonAnimationEnum } from '../models/enums/skellington-animation.enum';
 import { SkellConf } from '../models/interfaces/skellington-config';
 

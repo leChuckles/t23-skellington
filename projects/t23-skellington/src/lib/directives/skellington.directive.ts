@@ -1,36 +1,34 @@
 import { ComponentRef, Directive, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef, ViewRef } from '@angular/core';
-import { SkellingtonService } from './providers/skellington.service';
+import { SkellingtonService } from '../providers/skellington.service';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, skip, takeUntil } from 'rxjs/operators';
-import { SkellingtonAnimationEnum } from './models/enums/skellington-animation.enum';
+import { SkellingtonAnimationEnum } from '../models/enums/skellington-animation.enum';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
     selector: '[skellington], [t23Skeleton]'
 })
 export class SkellingtonDirective implements OnInit, OnDestroy {
-    protected readonly mutationObserver: MutationObserver | undefined;
-    protected readonly destroyed$: Subject<void> = new Subject();
-    protected readonly changesSubject: Subject<Array<MutationRecord>> = new Subject();
-    protected readonly changes$: Observable<Array<MutationRecord>> = this.changesSubject.asObservable();
-    protected _component: string = 'app-skellington';
+    protected readonly _mutationObserver: MutationObserver | undefined;
+    protected readonly _destroyed$: Subject<void> = new Subject();
+    protected readonly _changesSubject: Subject<Array<MutationRecord>> = new Subject();
+    protected readonly _changes$: Observable<Array<MutationRecord>> = this._changesSubject.asObservable();
+    protected _component: string = 't23-skellington';
     protected _templateRef: TemplateRef<unknown> | undefined;
 
     @Input() public count: number = 1;
     @Input() public animation: SkellingtonAnimationEnum;
 
     @Input() public set skelloading(loading: boolean) {
-        if (loading) { this.clearSkellingtonComponent(); }
+        if (loading) { this._clearSkellingtonComponent(); }
     }
 
     @Input() public set skellington(component: string | TemplateRef<unknown>) {
-        // NG TEMPLATE
-        if (!component) { return; }
-        if (typeof component === 'string') {
-            this._component = component;
-        } else {
-            this._templateRef = component;
-        }
+        this.setupSkellington(component);
+    }
+
+    @Input() public set t23Skeleton(component: string | TemplateRef<unknown>) {
+        this.setupSkellington(component);
     }
 
     protected ref: ViewRef | Array<ViewRef> | undefined;
@@ -42,11 +40,11 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
     ) {
         const element = this.elementRef.nativeElement;
 
-        this.mutationObserver = new MutationObserver((mutations: Array<MutationRecord>) => {
-            this.changesSubject.next(mutations);
+        this._mutationObserver = new MutationObserver((mutations: Array<MutationRecord>) => {
+            this._changesSubject.next(mutations);
         });
 
-        this.mutationObserver.observe(element, {
+        this._mutationObserver.observe(element, {
             childList: true,
             characterData: true,
             subtree: true,
@@ -55,11 +53,11 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        !!this._templateRef ? this.insertTemplateView(this._templateRef) : this.createSkellingtonComponent(this._component);
+        !!this._templateRef ? this._insertTemplateView(this._templateRef) : this._createSkellingtonComponent(this._component);
 
-        this.changes$
+        this._changes$
             .pipe(
-                takeUntil(this.destroyed$),
+                takeUntil(this._destroyed$),
                 skip(1),
                 map((mutations: Array<MutationRecord>) => mutations.find(m => {
 
@@ -71,18 +69,27 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
                 })),
                 filter(mutation => !!mutation),
             )
-            .subscribe(() => this.clearSkellingtonComponent());
+            .subscribe(() => this._clearSkellingtonComponent());
     }
 
-    public async create(component: string): Promise<ViewRef> {
+    protected setupSkellington(component: string | TemplateRef<unknown>): void {
+        if (!component) { return; }
+        if (typeof component === 'string') {
+            this._component = component;
+        } else {
+            this._templateRef = component;
+        }
+    }
+
+    protected async create(component: string): Promise<ViewRef> {
         return this.service
             .getComponentBySelector(
                 component,
-                () => import('./skellington.module').then(m => m.SkellingtonModule)
+                () => import('../skellington.module').then(m => m.SkellingtonModule)
             )
             .then(componentRef => {
-                this.setStyling(this.elementRef, componentRef);
-                this.insertComponentView(componentRef);
+                this._setStyling(this.elementRef, componentRef);
+                this._insertComponentView(componentRef);
                 if (!!componentRef.instance.animation) {
                     componentRef.instance.animation = this.animation || this.service.getAnimation();
                 }
@@ -90,30 +97,30 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
             });
     }
 
-    public async createSkellingtonComponent(component: string): Promise<void> {
+    protected async _createSkellingtonComponent(component: string): Promise<void> {
         if (!this.ref) {
             const lineCount = new Array(this.count).fill(0);
             this.ref = await Promise.all(lineCount.map(() => this.create(component)));
         }
     }
 
-    public clearSkellingtonComponent(): void {
+    protected _clearSkellingtonComponent(): void {
         this.elementRef.nativeElement.hidden = false;
         this.vcr.clear();
         this.ref = undefined;
     }
 
-    protected insertComponentView(componentRef: ComponentRef<unknown>): void {
+    protected _insertComponentView(componentRef: ComponentRef<unknown>): void {
         this.vcr.insert(componentRef.hostView);
         this.elementRef.nativeElement.hidden = true;
     }
 
-    protected insertTemplateView(templateRef: TemplateRef<unknown>): void {
+    protected _insertTemplateView(templateRef: TemplateRef<unknown>): void {
         this.vcr.createEmbeddedView(templateRef);
         this.elementRef.nativeElement.hidden = true;
     }
 
-    protected setStyling(element: ElementRef, componentRef: ComponentRef<unknown>): void {
+    protected _setStyling(element: ElementRef, componentRef: ComponentRef<unknown>): void {
         const textTags = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'h8', 'p', 'small', 'span'];
         let styles: (string | Array<string>)[] = ['margin', 'padding', 'width', 'position', 'top', 'left', 'right', 'bottom'];
 
@@ -128,19 +135,19 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
                 return Array.isArray(val);
             };
             if (!isArray(style)) {
-                componentRef.location.nativeElement.style[style] = this.getPropertyStyleValue(this.elementRef, style);
+                componentRef.location.nativeElement.style[style] = this._getPropertyStyleValue(this.elementRef, style);
             } else {
-                componentRef.location.nativeElement.style[style[1]] = this.getPropertyStyleValue(this.elementRef, style[0]);
+                componentRef.location.nativeElement.style[style[1]] = this._getPropertyStyleValue(this.elementRef, style[0]);
             }
         });
     }
 
-    protected getPropertyStyleValue(element: ElementRef, property: string): string {
+    protected _getPropertyStyleValue(element: ElementRef, property: string): string {
         return window.getComputedStyle(element.nativeElement, null).getPropertyValue(property);
     }
 
     public ngOnDestroy(): void {
-        this.mutationObserver.disconnect();
-        this.destroyed$.next();
+        this._mutationObserver.disconnect();
+        this._destroyed$.next();
     }
 }

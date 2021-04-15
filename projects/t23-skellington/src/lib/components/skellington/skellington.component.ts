@@ -3,7 +3,7 @@ import { SkellingtonAnimationEnum } from '../../models/enums/skellington-animati
 import { SkellingtonService } from '../../providers/skellington.service';
 
 @Component({
-    selector: 'app-skellington',
+    selector: 't23-skellington',
     templateUrl: './skellington.component.html',
     styleUrls: ['./skellington.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

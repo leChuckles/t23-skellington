@@ -124,38 +124,38 @@
         }
       }
     },
-    "skell": {
+    "t23-skellington": {
       "projectType": "library",
-      "root": "projects/skell",
-      "sourceRoot": "projects/skell/src",
+      "root": "projects/t23-skellington",
+      "sourceRoot": "projects/t23-skellington/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/skell/tsconfig.lib.json",
-            "project": "projects/skell/ng-package.json"
+            "tsConfig": "projects/t23-skellington/tsconfig.lib.json",
+            "project": "projects/t23-skellington/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/skell/tsconfig.lib.prod.json"
+              "tsConfig": "projects/t23-skellington/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/skell/src/test.ts",
-            "tsConfig": "projects/skell/tsconfig.spec.json",
-            "karmaConfig": "projects/skell/karma.conf.js"
+            "main": "projects/t23-skellington/src/test.ts",
+            "tsConfig": "projects/t23-skellington/tsconfig.spec.json",
+            "karmaConfig": "projects/t23-skellington/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/skell/tsconfig.lib.json",
-              "projects/skell/tsconfig.spec.json"
+              "projects/t23-skellington/tsconfig.lib.json",
+              "projects/t23-skellington/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -163,6 +163,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "skellington"
 }
