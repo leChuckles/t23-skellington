@@ -9,24 +9,13 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter'),
       require('@angular-devkit/build-angular/plugins/karma'),
-      require('karma-junit-reporter')
+      require('karma-coverage'),
     ],
-    junitReporter: {
-        outputDir: 'artifacts/tests',
-        outputFile: 'junit-test-results.xml',
-        useBrowserName: false,
-    },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, '../../coverage/t23-skellington'),
-      reports: ['html', 'lcovonly', 'text-summary'],
-      fixWebpackSourcePaths: true
-    },
-    reporters: ['progress', 'kjhtml', 'junit'],
+    reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
@@ -38,6 +27,11 @@ module.exports = function (config) {
             flags: ['--no-sandbox']
         }
     },
+      coverageReporter: {
+          type : 'cobertura',
+          dir : '../../coverage/',
+          subdir: '.'
+      },
     singleRun: false,
     restartOnFileChange: true
   });

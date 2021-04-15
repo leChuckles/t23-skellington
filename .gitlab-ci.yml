@@ -35,10 +35,7 @@ test:
         - export CHROME_BIN=/usr/bin/google-chrome
     script:
         - npm run test t23-skellington -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage
-    coverage: '/Lines \W+: (\d+\.\d+)%.*/'
     artifacts:
-        name: "tests-and-coverage"
         reports:
-            junit:
-                - $OUTPUT_PATH/tests/junit-test-results.xml
+            cobertura: coverage/cobertura-coverage.xml
 
