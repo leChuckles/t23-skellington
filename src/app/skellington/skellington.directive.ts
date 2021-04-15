@@ -82,7 +82,6 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
                 this.setStyling(this.elementRef, componentRef);
                 this.insertComponentView(componentRef);
                 if (!!componentRef.instance.animation) {
-                    console.log('THIS: ', this.animation || this.service.getAnimation())
                     componentRef.instance.animation = this.animation || this.service.getAnimation();
                 }
                 return componentRef.hostView;

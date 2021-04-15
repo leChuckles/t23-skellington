@@ -12,7 +12,6 @@ export class SkellingtonService {
     ) {}
 
     public getAnimation(): SkellingtonAnimationEnum {
-        console.log('THIS: ', this.config.options);
         return !!this.config.options ? this.config.options.animation : SkellingtonAnimationEnum.PROGRESS;
     }
 
