@@ -16,8 +16,91 @@ export class AppComponent implements OnInit {
     public text: string | undefined;
     public heading: string | undefined;
     public longText: string | undefined;
-    lines: any = [ 0 ];
-    src: any;
+    public lines: any = [ 0, 0, 0 ];
+    public src: string | undefined;
+
+    public template = `
+        <div class="grid">
+            <ng-template #test>
+                <div class="grid__item">
+                    <t23-skellington></t23-skellington>
+                    <t23-skellington></t23-skellington>
+                    <t23-skellington></t23-skellington>
+                </div>
+            </ng-template>
+            <div [skellington]="test" class="grid__item">
+                {{ longText }}
+            </div>
+        </div>
+    `;
+
+    public darkCard = `
+        <app-dummy class="grid__item dark">
+            <div>
+                <div>
+                    <img [src]="src" skellington/>
+                </div>
+                <h1 skellington>{{ text }}</h1>
+            </div>
+            <p skellington [count]="5">{{ longText }}</p>
+            <div class="actions">
+                <button skellington class="actions__button">
+                    {{ text }}
+                </button>
+            </div>
+        </app-dummy>
+    `;
+
+    public card = `
+        <app-dummy class="grid__item">
+            <div>
+                <div>
+                    <img [src]="src" skellington/>
+                </div>
+                <h1 skellington>{{ text }}</h1>
+            </div>
+            <p skellington [count]="5">{{ longText }}</p>
+            <div class="actions">
+                <button skellington class="actions__button">
+                    {{ text }}
+                </button>
+            </div>
+        </app-dummy>
+    `;
+
+    public roundDarkCard = `
+        <app-dummy class="grid__item rounded dark">
+            <div>
+                <div>
+                    <img [src]="src" skellington/>
+                </div>
+                <h1 skellington>{{ text }}</h1>
+            </div>
+            <p skellington [count]="5">{{ longText }}</p>
+            <div class="actions">
+                <button skellington class="actions__button">
+                    {{ text }}
+                </button>
+            </div>
+        </app-dummy>
+    `;
+
+    public cardcard = `
+        <app-dummy class="grid__item dark">
+            <div style="width: 100%; height: 250px;">
+                <img [src]="src" skellington/>
+            </div>
+            <div>
+                <h1 skellington>{{ text }}</h1>
+                <p skellington [count]="5">{{ longText }}</p>
+                <div class="actions">
+                    <button skellington class="actions__button">
+                        {{ text }}
+                    </button>
+                </div>
+            </div>
+        </app-dummy>
+    `;
 
     public ngOnInit(): void {
         setTimeout(() => {

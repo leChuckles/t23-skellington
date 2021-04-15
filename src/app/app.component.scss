@@ -1,12 +1,19 @@
+:host {
+    display: block;
+    position: relative;
+}
+
 .grid {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
 
     &__item {
+        background: white;
+        border: 1px solid #cecece;
         margin: 6px;
-        min-width: calc(50% - 12px);
-        width: calc(50% - 12px);
+        min-width: calc(50% - 24px);
+        width: calc(50% - 24px);
 
         app-skellington {
             margin-bottom: 12px;

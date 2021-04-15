@@ -2,13 +2,22 @@
     <ng-template #test>
 
         <div class="grid__item">
-            <t23-skellington></t23-skellington>
-            <t23-skellington></t23-skellington>
-            <t23-skellington></t23-skellington>
+            <div style="padding: 12px">
+                <t23-skellington *ngFor="let line of lines"></t23-skellington>
+            </div>
         </div>
     </ng-template>
     <div [skellington]="test" class="grid__item">
-        {{ longText }}
+        <div style="padding: 12px">
+            {{ longText }}
+        </div>
+
+    </div>
+
+    <div class="grid__item">
+        <pre>
+            <code [highlight]="template"></code>
+        </pre>
     </div>
 
 
@@ -21,7 +30,7 @@
         </div>
 
         <div>
-            <p skellington *ngFor="let line of lines">{{ text }}</p>
+
             <p skellington [count]="5">{{ longText }}</p>
         </div>
 
@@ -30,8 +39,13 @@
                 {{ text }}
             </button>
         </div>
-
     </app-dummy>
+
+    <div class="grid__item">
+        <pre>
+            <code [highlight]="darkCard"></code>
+        </pre>
+    </div>
 
         <app-dummy class="grid__item" style="padding: 24px; box-sizing: border-box">
             <div style="display: flex; align-items: center; width: 100%">
@@ -42,7 +56,7 @@
             </div>
 
             <div>
-                <p skellington *ngFor="let line of lines">{{ text }}</p>
+
                 <p skellington [count]="5">{{ longText }}</p>
             </div>
 
@@ -53,7 +67,11 @@
             </div>
 
         </app-dummy>
-
+    <div class="grid__item">
+        <pre>
+            <code [highlight]="card"></code>
+        </pre>
+    </div>
         <app-dummy class="grid__item rounded dark" style="padding: 24px; box-sizing: border-box">
             <div style="display: flex; align-items: center; width: 100%">
                 <div style="min-width: 50px; width: 50px; height: 50px;">
@@ -63,7 +81,7 @@
             </div>
 
             <div>
-                <p skellington *ngFor="let line of lines">{{ text }}</p>
+
                 <p skellington [count]="5">{{ longText }}</p>
             </div>
 
@@ -74,27 +92,38 @@
             </div>
 
         </app-dummy>
+    <div class="grid__item">
+        <pre>
+            <code [highlight]="roundDarkCard"></code>
+        </pre>
+    </div>
+    <app-dummy class="grid__item dark" style="box-sizing: border-box">
+        <div style="width: 100%; height: 250px;">
 
-        <app-dummy class="grid__item dark" style="box-sizing: border-box">
-            <div style="width: 100%; height: 250px;">
+            <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
+        </div>
 
-                <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
+        <div style="padding: 24px;">
+            <h1 skellington>{{ text }}</h1>
+
+            <div>
+
+                <p skellington [count]="5">{{ longText }}</p>
             </div>
 
-            <div style="padding: 24px;">
-                <h1 skellington>{{ text }}</h1>
-
-                <div>
-                    <p skellington *ngFor="let line of lines">{{ text }}</p>
-                    <p skellington [count]="5">{{ longText }}</p>
-                </div>
-
-                <div class="actions">
-                    <button skellington class="actions__button">
-                        {{ text }}
-                    </button>
-                </div>
+            <div class="actions">
+                <button skellington class="actions__button">
+                    {{ text }}
+                </button>
             </div>
+        </div>
 
-        </app-dummy>
+    </app-dummy>
+
+    <div class="grid__item">
+        <pre>
+            <code [highlight]="cardcard"></code>
+        </pre>
+    </div>
+
 </div>
