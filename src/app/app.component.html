@@ -1,7 +1,18 @@
 <div class="grid">
+    <ng-template #test>
+
+        <div class="grid__item">
+            <app-skellington></app-skellington>
+            <app-skellington></app-skellington>
+            <app-skellington></app-skellington>
+        </div>
+    </ng-template>
+    <div [skellington]="test" class="grid__item">
+        {{ longText }}
+    </div>
 
 
-    <app-dummy class="grid__item" style="padding: 24px; box-sizing: border-box">
+    <app-dummy class="grid__item dark" style="padding: 24px; box-sizing: border-box">
         <div style="display: flex; align-items: center; width: 100%">
             <div style="min-width: 50px; width: 50px; height: 50px;">
                 <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
@@ -14,9 +25,76 @@
             <p skellington [count]="5">{{ longText }}</p>
         </div>
 
-        <button skellington style="position: absolute; bottom: 12px; right: 12px; width: 160px; height: 40px;">
-            {{ text }}
-        </button>
+        <div class="actions">
+            <button skellington class="actions__button">
+                {{ text }}
+            </button>
+        </div>
 
     </app-dummy>
+    <!--
+        <app-dummy class="grid__item" style="padding: 24px; box-sizing: border-box">
+            <div style="display: flex; align-items: center; width: 100%">
+                <div style="min-width: 50px; width: 50px; height: 50px;">
+                    <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
+                </div>
+                <h1 skellington style="width: 100%; margin-left: 24px;">{{ text }}</h1>
+            </div>
+
+            <div>
+                <p skellington *ngFor="let line of lines">{{ text }}</p>
+                <p skellington [count]="5">{{ longText }}</p>
+            </div>
+
+            <div class="actions">
+                <button skellington class="actions__button">
+                    {{ text }}
+                </button>
+            </div>
+
+        </app-dummy>
+
+        <app-dummy class="grid__item rounded dark" style="padding: 24px; box-sizing: border-box">
+            <div style="display: flex; align-items: center; width: 100%">
+                <div style="min-width: 50px; width: 50px; height: 50px;">
+                    <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
+                </div>
+                <h1 skellington style="width: 100%; margin-left: 24px;">{{ text }}</h1>
+            </div>
+
+            <div>
+                <p skellington *ngFor="let line of lines">{{ text }}</p>
+                <p skellington [count]="5">{{ longText }}</p>
+            </div>
+
+            <div class="actions">
+                <button skellington class="actions__button">
+                    {{ text }}
+                </button>
+            </div>
+
+        </app-dummy>
+
+        <app-dummy class="grid__item dark" style="box-sizing: border-box">
+            <div style="width: 100%; height: 250px;">
+
+                <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
+            </div>
+
+            <div style="padding: 24px;">
+                <h1 skellington>{{ text }}</h1>
+
+                <div>
+                    <p skellington *ngFor="let line of lines">{{ text }}</p>
+                    <p skellington [count]="5">{{ longText }}</p>
+                </div>
+
+                <div class="actions">
+                    <button skellington class="actions__button">
+                        {{ text }}
+                    </button>
+                </div>
+            </div>
+
+        </app-dummy> -->
 </div>

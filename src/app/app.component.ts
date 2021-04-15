@@ -16,16 +16,16 @@ export class AppComponent implements OnInit {
     public text: string | undefined;
     public heading: string | undefined;
     public longText: string | undefined;
-    lines: any = [0, 0, 0];
+    lines: any = [ 0 ];
     src: any;
 
     public ngOnInit(): void {
         setTimeout(() => {
             this.heading = 'FOOBAR';
             this.text = 'foo';
-            this.longText = 'Lucas ipsum dolor sit amet raynar lumiya rodian fel k-3po aruzan vader zorba dorvalla noa. Cerean firrerreo jubnuk felth raynar toydarian farlax jade amidala. Sith kalarba ric skywalker dagobah thrella aparo. Durron muunilinst epicanthix gavyn ansionian duro bardan. Tof ugnaught hutt nomi. Gonk qui-gonn gungan watto. Artaru bane daala calamari tono. Drovian mace mon dressellian felucia lando yuvernian luuke. Bibble ryn voxyn jinn ranat devaronian windu shadda. Katarn biggs mirax winter kathol naberrie.';
+            this.longText = 'Lucas ipsum dolor sit amet raynar lumiya rodian fel k-3po aruzan vader zorba dorvalla noa. Cerean firrerreo jubnuk felth raynar  ugnaught hutt nomi. Gonk qui-gonn gungan watto. Artaru bane daala calamari tono. Drovian mace mon dressellian felucia lando yuvernian luuke. Bibble ryn voxyn jinn ranat devaronian windu shadda. Katarn biggs mirax winter kathol naberrie.';
             this.loadingSubject.next(true);
             this.src = 'http://www.klangundkleid.de/img/plakate/film/back-to-the-future-poster-delorean-kaufen-g877315-20200326192200.jpg';
-        }, 2500);
+        }, 50000);
     }
 }

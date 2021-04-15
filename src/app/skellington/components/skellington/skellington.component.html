@@ -1,12 +1,17 @@
-<div class="card" *ngIf="!skelloading">
-    <div class="card__title">
-        <div class="skellington-line skellington-line--title"></div>
-    </div>
-    <div class="card__content">
-        <div class="skellington-line" *ngFor="let line of lineCount"></div>
-    </div>
-</div>
-<div [hidden]="!skelloading">
-    <ng-content></ng-content>
-</div>
+<span
+    class="skellington-line"
+    [class]="'skellington-line--' + animation"
+    aria-busy="true"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    role="progressbar"
+    tabindex="0"
+><!--
 
+    [ngClass]="{
+    circle: appearance === 'circle',
+    progress: animation === 'progress',
+    'progress-dark': animation === 'progress-dark',
+    pulse: animation === 'pulse'
+  }"[attr.aria-valuetext]="loadingText" -->
+</span>

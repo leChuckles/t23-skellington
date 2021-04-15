@@ -1,4 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SkellingtonAnimationEnum } from '../../models/enums/skellington-animation.enum';
+import { SkellingtonService } from '../../providers/skellington.service';
 
 @Component({
     selector: 'app-skellington',
@@ -6,18 +8,13 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, Input, ViewChild } f
     styleUrls: ['./skellington.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkellingtonComponent implements AfterViewInit {
+export class SkellingtonComponent {
 
-    public lineCount: Array<number> = [0, 0, 0];
+    @Input() public animation: SkellingtonAnimationEnum = SkellingtonAnimationEnum.PROGRESS;
 
-    @Input() public skelloading: boolean = false;
-    @ViewChild('dynamicSkeleton') public dynamicSkeleton;
-
-    public set lines(lines: number) {
-        this.lineCount = new Array(lines).fill(0);
-    }
-
-    public ngAfterViewInit(): void {
-        console.log('DYN: ', this.dynamicSkeleton);
+    constructor(
+        protected readonly skellingtonService: SkellingtonService,
+    ) {
+        this.animation = skellingtonService.getAnimation();
     }
 }

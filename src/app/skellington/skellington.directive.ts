@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ComponentRef, Directive, ElementRef, Input, OnDestroy, OnInit, ViewContainerRef, ViewRef } from '@angular/core';
+import { ComponentRef, Directive, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef, ViewRef } from '@angular/core';
 import { SkellingtonService } from './providers/skellington.service';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, skip, takeUntil } from 'rxjs/operators';
@@ -6,29 +6,31 @@ import { SkellingtonAnimationEnum } from './models/enums/skellington-animation.e
 
 @Directive({
     // tslint:disable-next-line:directive-selector
-    selector: '[skellington], [t23Skell]'
+    selector: '[skellington], [t23Skeleton]'
 })
 export class SkellingtonDirective implements OnInit, OnDestroy {
     protected readonly mutationObserver: MutationObserver | undefined;
     protected readonly destroyed$: Subject<void> = new Subject();
     protected readonly changesSubject: Subject<Array<MutationRecord>> = new Subject();
     protected readonly changes$: Observable<Array<MutationRecord>> = this.changesSubject.asObservable();
-    protected _component: string = 'app-skellington-line';
+    protected _component: string = 'app-skellington';
+    protected _templateRef: TemplateRef<unknown> | undefined;
 
     @Input() public count: number = 1;
     @Input() public animation: SkellingtonAnimationEnum;
 
     @Input() public set skelloading(loading: boolean) {
-        if (loading) { this.clearSkellingtonLine(); }
+        if (loading) { this.clearSkellingtonComponent(); }
     }
 
-    @Input() public set skellington(component: string) {
+    @Input() public set skellington(component: string | TemplateRef<unknown>) {
         // NG TEMPLATE
         if (!component) { return; }
-        this._component = component;
-    }
-    public get skellington(): string {
-        return this._component;
+        if (typeof component === 'string') {
+            this._component = component;
+        } else {
+            this._templateRef = component;
+        }
     }
 
     protected ref: ViewRef | Array<ViewRef> | undefined;
@@ -53,7 +55,7 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.createSkellingtonLine(this._component);
+        !!this._templateRef ? this.insertTemplateView(this._templateRef) : this.createSkellingtonComponent(this._component);
 
         this.changes$
             .pipe(
@@ -69,7 +71,7 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
                 })),
                 filter(mutation => !!mutation),
             )
-            .subscribe(() => this.clearSkellingtonLine());
+            .subscribe(() => this.clearSkellingtonComponent());
     }
 
     public async create(component: string): Promise<ViewRef> {
@@ -88,15 +90,14 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
             });
     }
 
-    public async createSkellingtonLine(component: string): Promise<void> {
+    public async createSkellingtonComponent(component: string): Promise<void> {
         if (!this.ref) {
             const lineCount = new Array(this.count).fill(0);
             this.ref = await Promise.all(lineCount.map(() => this.create(component)));
-            this.elementRef.nativeElement.hidden = true;
         }
     }
 
-    public clearSkellingtonLine(): void {
+    public clearSkellingtonComponent(): void {
         this.elementRef.nativeElement.hidden = false;
         this.vcr.clear();
         this.ref = undefined;
@@ -104,6 +105,12 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
 
     protected insertComponentView(componentRef: ComponentRef<unknown>): void {
         this.vcr.insert(componentRef.hostView);
+        this.elementRef.nativeElement.hidden = true;
+    }
+
+    protected insertTemplateView(templateRef: TemplateRef<unknown>): void {
+        this.vcr.createEmbeddedView(templateRef);
+        this.elementRef.nativeElement.hidden = true;
     }
 
     protected setStyling(element: ElementRef, componentRef: ComponentRef<unknown>): void {

@@ -1,7 +1,8 @@
 import { Compiler, ComponentFactory, ComponentRef, Inject, Injectable, Injector, NgModuleFactory, Optional } from '@angular/core';
 import { AbstractBaseModule } from '../models/abstract-base-module';
-import { SKELL_CONF, SkellConf } from '../skellington.token';
+import { SKELL_CONF } from '../skellington.token';
 import { SkellingtonAnimationEnum } from '../models/enums/skellington-animation.enum';
+import { SkellConf } from '../models/interfaces/skellington-config';
 
 @Injectable()
 export class SkellingtonService {
@@ -24,7 +25,7 @@ export class SkellingtonService {
             const module = moduleFactory.create(this.injector);
 
             if (module.instance instanceof AbstractBaseModule) {
-                const dynamicComponents = !!this.config ? this.config.dynamicComponents : [];
+                const dynamicComponents = (!!this.config && !!this.config.dynamicComponents) ? this.config.dynamicComponents : [];
                 const compFactory: ComponentFactory<
                     any
                     > = module.instance.getComponentFactory(componentSelector, dynamicComponents);

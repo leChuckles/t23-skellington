@@ -4,9 +4,35 @@
     flex-wrap: wrap;
 
     &__item {
-        min-width: 50%;
-        width: 50%;
-    }
+        margin: 6px;
+        min-width: calc(50% - 12px);
+        width: calc(50% - 12px);
 
-    --skellington-background-color: rgb(50, 50, 50);
+        app-skellington {
+            margin-bottom: 12px;
+        }
+
+        &.dark {
+            --skellington-background-color: rgb(50, 50, 50);
+        }
+
+        &.rounded {
+            --skellington-border-radius: 8px;
+        }
+
+        .actions {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            &__button {
+                padding: 0;
+                margin: 0;
+                position: relative;
+                width: 160px;
+                height: 40px;
+            }
+        }
+    }
 }

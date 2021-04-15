@@ -4,7 +4,7 @@ export abstract class AbstractBaseModule {
 
     private selectorToFactoryMap: { [key: string]: ComponentFactory<any> } = null;
 
-    protected abstract dynamicComponents: Array<Type<any>>; // similar to entryComponents
+    protected abstract dynamicComponents: Array<Type<any>> = []; // similar to entryComponents
 
     protected constructor(
         protected componentFactoryResolver: ComponentFactoryResolver,

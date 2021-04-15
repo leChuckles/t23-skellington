@@ -1,19 +1,16 @@
 import { ComponentFactoryResolver, ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SkellingtonDirective } from './skellington.directive';
-import { SkellingtonComponent } from './components/skellington/skellington.component';
 import { SkellingtonService } from './providers/skellington.service';
 import { AbstractBaseModule } from './models/abstract-base-module';
-import { SKELL_CONF, SkellConf } from './skellington.token';
-import { SkellingtonLineComponent } from './components/skellington-line/skellington-line.component';
-import { SkellingtonImgComponent } from './components/skellington-img/skellington-img.component';
+import { SKELL_CONF } from './skellington.token';
+import { SkellingtonComponent } from './components/skellington/skellington.component';
+import { SkellConf } from './models/interfaces/skellington-config';
 
 @NgModule({
     declarations: [
         SkellingtonDirective,
         SkellingtonComponent,
-        SkellingtonLineComponent,
-        SkellingtonImgComponent,
     ],
     imports: [
         CommonModule,
@@ -28,7 +25,7 @@ import { SkellingtonImgComponent } from './components/skellington-img/skellingto
 })
 export class SkellingtonModule extends AbstractBaseModule {
 
-    protected dynamicComponents = [ SkellingtonComponent, SkellingtonLineComponent, SkellingtonImgComponent ];
+    protected dynamicComponents = [ SkellingtonComponent ];
 
     constructor(componentFactoryResolver: ComponentFactoryResolver) {
         super(componentFactoryResolver);
