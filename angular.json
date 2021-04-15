@@ -123,6 +123,46 @@
           }
         }
       }
+    },
+    "skell": {
+      "projectType": "library",
+      "root": "projects/skell",
+      "sourceRoot": "projects/skell/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/skell/tsconfig.lib.json",
+            "project": "projects/skell/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/skell/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/skell/src/test.ts",
+            "tsConfig": "projects/skell/tsconfig.spec.json",
+            "karmaConfig": "projects/skell/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/skell/tsconfig.lib.json",
+              "projects/skell/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }},
   "defaultProject": "skellington"
 }

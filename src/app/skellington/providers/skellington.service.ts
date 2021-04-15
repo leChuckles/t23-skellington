@@ -1,6 +1,7 @@
 import { Compiler, ComponentFactory, ComponentRef, Inject, Injectable, Injector, NgModuleFactory, Optional } from '@angular/core';
 import { AbstractBaseModule } from '../models/abstract-base-module';
 import { SKELL_CONF, SkellConf } from '../skellington.token';
+import { SkellingtonAnimationEnum } from '../models/enums/skellington-animation.enum';
 
 @Injectable()
 export class SkellingtonService {
@@ -10,10 +11,15 @@ export class SkellingtonService {
         @Optional() @Inject(SKELL_CONF) private config: SkellConf,
     ) {}
 
+    public getAnimation(): SkellingtonAnimationEnum {
+        console.log('THIS: ', this.config.options);
+        return !!this.config.options ? this.config.options.animation : SkellingtonAnimationEnum.PROGRESS;
+    }
+
     public getComponentBySelector(
         componentSelector: string,
         moduleLoaderFunction: () => Promise<any>
-    ): Promise<ComponentRef<unknown>> {
+    ): Promise<ComponentRef<unknown & { animation?: SkellingtonAnimationEnum }>> {
         return this.getModuleFactory(moduleLoaderFunction).then(moduleFactory => {
 
             const module = moduleFactory.create(this.injector);

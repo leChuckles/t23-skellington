@@ -6,6 +6,7 @@ import { SkellingtonDummyModule } from './skellington-dummy/skellington-dummy.mo
 import { SkeletonsComponent } from './skeletons/skeleton/skeletons.component';
 import { CommonModule } from '@angular/common';
 import { NgxSkeletonLoaderComponent, NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { SkellingtonAnimationEnum } from './skellington/models/enums/skellington-animation.enum';
 
 @NgModule({
     declarations: [
@@ -18,6 +19,9 @@ import { NgxSkeletonLoaderComponent, NgxSkeletonLoaderModule } from 'ngx-skeleto
         NgxSkeletonLoaderModule.forRoot(),
         SkellingtonModule.forRoot({
             dynamicComponents: [ SkeletonsComponent, NgxSkeletonLoaderComponent ],
+            options: {
+                animation: SkellingtonAnimationEnum.PROGRESS,
+            }
         }),
         SkellingtonDummyModule,
     ],

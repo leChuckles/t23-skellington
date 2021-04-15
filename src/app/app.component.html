@@ -4,33 +4,19 @@
     <app-dummy class="grid__item" style="padding: 24px; box-sizing: border-box">
         <div style="display: flex; align-items: center; width: 100%">
             <div style="min-width: 50px; width: 50px; height: 50px;">
-                <img [src]="src" skell="line" style="width: 100%; height: 100%; object-fit: cover;" [skelloading]="loading$ | async"/>
+                <img [src]="src" skellington style="width: 100%; height: 100%; object-fit: cover;"/>
             </div>
-            <p skell="line" style="width: 100%; margin-left: 24px;">{{ text }}</p>
+            <h1 skellington style="width: 100%; margin-left: 24px;">{{ text }}</h1>
         </div>
 
         <div>
-            <p skell="line" *ngFor="let line of lines">{{ text }}</p>
-            <p skell="line" [count]="5">{{ longText }}</p>
+            <p skellington *ngFor="let line of lines">{{ text }}</p>
+            <p skellington [count]="5">{{ longText }}</p>
         </div>
+
+        <button skellington style="position: absolute; bottom: 12px; right: 12px; width: 160px; height: 40px;">
+            {{ text }}
+        </button>
+
     </app-dummy>
-
-    <!---
-    <app-skellington class="grid__item" [skelloading]="loading$ | async">
-        <app-dummy>
-            asdfasdf
-        </app-dummy>
-    </app-skellington>
-
-    <app-dummy
-        skellington="app-skeletons"
-        [skelloading]="loading$ | async"
-        [props]="{ count: 4 }"
-        class="grid__item"
-    ></app-dummy>
-
-    <app-dummy skellington [skelloading]="loading$ | async" class="grid__item"></app-dummy>
-    -->
-
-
 </div>

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { SkellingtonAnimationEnum } from '../../models/enums/skellington-animation.enum';
 
 @Component({
     selector: 'app-skellington-line',
@@ -8,4 +9,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class SkellingtonLineComponent {
 
+    @Input() public animation: SkellingtonAnimationEnum = SkellingtonAnimationEnum.PROGRESS;
 }
