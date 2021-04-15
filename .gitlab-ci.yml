@@ -1,6 +1,7 @@
 image: node:14.15-stretch
 variables:
     FF_USE_FASTZIP: "true"
+    OUTPUT_PATH: "$CI_PROJECT_DIR/artifacts"
 
 cache:
     untracked: true
@@ -36,5 +37,8 @@ test:
         - npm run test t23-skellington -- --no-watch --no-progress --browsers=ChromeHeadlessCI --code-coverage
     coverage: '/Lines \W+: (\d+\.\d+)%.*/'
     artifacts:
-        paths:
-            - coverage/
+        name: "tests-and-coverage"
+        reports:
+            junit:
+                - $OUTPUT_PATH/tests/junit-test-results.xml
+
