@@ -13,7 +13,11 @@ export class SkellingtonService {
     ) {}
 
     public getAnimation(): SkellingtonAnimationEnum {
-        return !!this.config.options ? this.config.options.animation : SkellingtonAnimationEnum.PROGRESS;
+        if (!this.config) { return SkellingtonAnimationEnum.PROGRESS; }
+
+        return (!!this.config.options && !!this.config.options.animation) ?
+            this.config.options.animation :
+            SkellingtonAnimationEnum.PROGRESS;
     }
 
     public getComponentBySelector(
