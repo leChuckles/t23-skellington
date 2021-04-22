@@ -20,7 +20,7 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
     @Input() public animation: SkellingtonAnimationEnum;
 
     @Input() public set skelloading(loading: boolean) {
-        if (loading) { this._clearSkellingtonComponent(); }
+        if (!loading) { this._clearSkellingtonComponent(); }
     }
 
     @Input() public set skellington(component: string | TemplateRef<unknown>) {
@@ -69,7 +69,10 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
                 })),
                 filter(mutation => !!mutation),
             )
-            .subscribe(() => this._clearSkellingtonComponent());
+            .subscribe(() => {
+                this._mutationObserver.disconnect();
+                this._clearSkellingtonComponent();
+            });
     }
 
     protected setupSkellington(component: string | TemplateRef<unknown>): void {

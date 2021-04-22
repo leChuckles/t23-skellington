@@ -6,17 +6,19 @@ import { CommonModule } from '@angular/common';
 import { SkellingtonModule } from '../../projects/t23-skellington/src/lib/skellington.module';
 import { SkellingtonAnimationEnum } from '../../projects/t23-skellington/src/lib/models/enums/skellington-animation.enum';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
+import { SkellingtonCardComponent } from './skellington-card/skellington-card.component';
 
 @NgModule({
     declarations: [
         AppComponent,
+        SkellingtonCardComponent,
     ],
     imports: [
         BrowserModule,
         CommonModule,
         HighlightModule,
         SkellingtonModule.forRoot({
-            dynamicComponents: [],
+            dynamicComponents: [ SkellingtonCardComponent ],
             options: {
                 animation: SkellingtonAnimationEnum.PROGRESS,
             }

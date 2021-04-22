@@ -1,0 +1,13 @@
+.card {
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    padding: 24px;
+
+    &__image {
+        width: 50px;
+        height: 50px;
+
+        --skellington-border-radius: 25px;
+    }
+}
