@@ -7,11 +7,13 @@ import { SkellingtonModule } from '../../projects/t23-skellington/src/lib/skelli
 import { SkellingtonAnimationEnum } from '../../projects/t23-skellington/src/lib/models/enums/skellington-animation.enum';
 import { HIGHLIGHT_OPTIONS, HighlightModule } from 'ngx-highlightjs';
 import { SkellingtonCardComponent } from './skellington-card/skellington-card.component';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SkellingtonCardComponent,
+        CardComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,6 +1,19 @@
 <div class="grid">
 
     <div class="grid__item">
+        <t23-skellington>
+            <app-card ngProjectAs="app-card"></app-card>
+        </t23-skellington>
+    </div>
+
+
+    <div class="grid__item">
+        <pre>
+            <!--<code [highlight]="customComponent1"></code>-->
+        </pre>
+    </div>
+
+    <div class="grid__item">
         <ng-container *ngIf="loading$ | async; else content">
             <div [skellington]="'app-skellington-card'" [count]="1"></div>
         </ng-container>
@@ -22,7 +35,7 @@
 
         <div class="grid__item">
             <div style="padding: 12px">
-                <t23-skellington *ngFor="let line of lines"></t23-skellington>
+                <t23-skellington-loader *ngFor="let line of lines"></t23-skellington-loader>
             </div>
         </div>
     </ng-template>

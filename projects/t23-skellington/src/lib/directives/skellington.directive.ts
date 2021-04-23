@@ -1,8 +1,21 @@
-import { ComponentRef, Directive, ElementRef, Input, OnDestroy, OnInit, TemplateRef, ViewContainerRef, ViewRef } from '@angular/core';
+import {
+    ComponentRef,
+    Directive,
+    ElementRef,
+    Host,
+    Input,
+    OnDestroy,
+    OnInit,
+    Optional,
+    TemplateRef,
+    ViewContainerRef,
+    ViewRef
+} from '@angular/core';
 import { SkellingtonService } from '../providers/skellington.service';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, skip, takeUntil } from 'rxjs/operators';
 import { SkellingtonAnimationEnum } from '../models/enums/skellington-animation.enum';
+import { SkellingtonComponent } from '../components/skellington/skellington.component';
 
 @Directive({
     // tslint:disable-next-line:directive-selector
@@ -13,7 +26,7 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
     protected readonly _destroyed$: Subject<void> = new Subject();
     protected readonly _changesSubject: Subject<Array<MutationRecord>> = new Subject();
     protected readonly _changes$: Observable<Array<MutationRecord>> = this._changesSubject.asObservable();
-    protected _component: string = 't23-skellington';
+    protected _component: string = 't23-skellington-loader';
     protected _templateRef: TemplateRef<unknown> | undefined;
 
     @Input() public count: number = 1;
@@ -37,7 +50,9 @@ export class SkellingtonDirective implements OnInit, OnDestroy {
         protected readonly elementRef: ElementRef,
         protected readonly vcr: ViewContainerRef,
         protected readonly service: SkellingtonService,
+        @Optional() @Host() protected readonly host: SkellingtonComponent,
     ) {
+        setTimeout(() => console.log('THIS: ', this.host), 500);
         const element = this.elementRef.nativeElement;
 
         this._mutationObserver = new MutationObserver((mutations: Array<MutationRecord>) => {

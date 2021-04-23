@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { SkellingtonAnimationEnum } from '../../models/enums/skellington-animation.enum';
-import { SkellingtonService } from '../../providers/skellington.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     selector: 't23-skellington',
@@ -8,15 +6,6 @@ import { SkellingtonService } from '../../providers/skellington.service';
     styleUrls: ['./skellington.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SkellingtonComponent implements OnInit {
+export class SkellingtonComponent {
 
-    @Input() public animation: SkellingtonAnimationEnum = SkellingtonAnimationEnum.PROGRESS;
-
-    constructor(
-        protected readonly skellingtonService: SkellingtonService,
-    ) {}
-
-    public ngOnInit(): void {
-        this.animation = this.skellingtonService.getAnimation();
-    }
 }
